@@ -1,0 +1,3 @@
+corrigir a alteracao
+tirar do menu a opcao salvar, carregar
+arrumar o espaco
