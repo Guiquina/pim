@@ -3,7 +3,7 @@
 #include <string.h>
 
 // Define o tamanho máximo do nome
-#define MAX_NOME 50
+#define MAX_NOME 60
 
 // Define a struct que representa um registro
 struct Registro
