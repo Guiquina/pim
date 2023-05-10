@@ -2,34 +2,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define o tamanho máximo da lista
+// Define o tamanho máximo da listaFuncionario
 #define MAX_REGISTROS 100
 
 // Define o arquivo que será utilizado para persistir os dados
-const char *NOME_ARQUIVO = "registrosFuncionario.dat";
+const char *NOME_ARQUIVOFuncionario = "registrosFuncionario.dat";
 
 // Define a struct que representa um registro
 struct RegistroFuncionario
 {
     int codigo, idade, data; 
-    char nome[50], cidade[50], email[50], celular[50], cpf[50];
+    char nome[50], endereco[50], email[50], celular[50], cpf[50];
 };
 
-// Define a lista de registros
-struct RegistroFuncionario lista[MAX_REGISTROS];
+// Define a listaFuncionario de registros
+struct RegistroFuncionario listaFuncionario[MAX_REGISTROS];
 
-// Define o tamanho atual da lista
-int tamanho = 0;
+// Define o tamanho atual da listaFuncionario
+int tamanhoFuncionario = 0;
 
+        
 void menuFuncionario(){
 
 
 	
-	printf("1. Cadastrar\n");
-    printf("2. Buscar\n");
-    printf("3. Listar\n");
-    printf("4. Atualizar\n");
-    printf("6. Excluir\n");
+	printf("4. Cadastrar\n");
+    printf("5. Buscar\n");
+    printf("6. Listar\n");
+    printf("7. Atualizar\n");
+    printf("8. Excluir\n");
+    printf("9. salvar\n");
     printf("digite uma opcao: ");
     
 }
@@ -38,7 +40,7 @@ void menuFuncionario(){
 void cadastrarFuncionario()
 {
 
-	if (tamanho >= MAX_REGISTROS)
+	if (tamanhoFuncionario >= MAX_REGISTROS)
     {
         printf("Nao e possivel cadastrar mais registros.\n");
         return;
@@ -48,33 +50,41 @@ void cadastrarFuncionario()
     struct RegistroFuncionario registro;
     printf("Digite o codigo: ");
     scanf("%d", &registro.codigo);
+    fflush(stdin);
     
     printf("Digite o nome: ");
-    scanf("%s", &registro.nome);
+    fgets(registro.nome,50,stdin);
+    registro.nome[strcspn(registro.nome,"\n")]=0;
     
     printf("Digite a idade: ");
     scanf("%d", &registro.idade);
+    fflush(stdin);
     
     printf("Digite o numero de telefone: ");
-    scanf("%s", &registro.celular);
+    fgets( registro.celular,50,stdin);
+    registro.celular[strcspn(registro.celular,"\n")]=0;
+    
     
     printf("Digite o cpf: ");
-    scanf("%s", &registro.cpf);
+    fgets(registro.cpf,50,stdin);
+    registro.cpf[strcspn(registro.cpf,"\n")]=0;
     
-    printf("Ano de nascimento: ");
+    printf("Ano de nascimento:");
     scanf("%d", &registro.data);
+    fflush(stdin);
     
-    printf("Digite a cidade:  ");
-    scanf("%s", &registro.cidade);
-    //regsitro.endereco=gets();
+    printf("Digite o endereco:  ");
+    fgets(registro.endereco,50,stdin);
+    registro.endereco[strcspn(registro.endereco,"\n")]=0;
     
     printf("Digite o e-mail:  ");
-    scanf("%s", &registro.email);
+    fgets(registro.email,50,stdin);
+    //scanf("%s", &registro.email);
 
     
 
-    lista[tamanho] = registro;
-    tamanho++;
+    listaFuncionario[tamanhoFuncionario] = registro;
+    tamanhoFuncionario++;
 
     printf("Registro cadastrado com sucesso.\n");
 
@@ -87,25 +97,25 @@ void cadastrarFuncionario()
 
 
 // Função para buscar um registro pelo código
-void buscar()
+void buscarFuncionario()
 {
     int codigo;
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
 
     int i;
-    for (i = 0; i < tamanho; i++)
+    for (i = 0; i < tamanhoFuncionario; i++)
     {
-        if (lista[i].codigo == codigo)
+        if (listaFuncionario[i].codigo == codigo)
         {
-            printf("Codigo: %d\n", lista[i].codigo);
-            printf("Nome: %s\n", lista[i].nome);
-            printf("Idade: %d\n", lista[i].idade);
-            printf("Celular: %d\n", lista[i].celular);
-            printf("Cpf: %d\n", lista[i].cpf);
-            printf("Ano de nascimento: %d\n", lista[i].data);
-            printf("cidade: %s\n", lista[i].cidade);
-            printf("E-mail: %s\n", lista[i].email);
+            printf("Codigo: %d\n", listaFuncionario[i].codigo);
+            printf("Nome: %s\n", listaFuncionario[i].nome);
+            printf("Idade: %d\n", listaFuncionario[i].idade);
+            printf("Celular: %s\n", listaFuncionario[i].celular);
+            printf("Cpf: %s\n", listaFuncionario[i].cpf);
+            printf("Ano de nascimento: %d\n", listaFuncionario[i].data);
+            printf("endereco: %s\n", listaFuncionario[i].endereco);
+            printf("E-mail: %s\n", listaFuncionario[i].email);
             return;
         }
     }
@@ -117,16 +127,16 @@ void buscar()
 void listar()
 {
     int i;
-    for (i = 0; i < tamanho; i++)
+    for (i = 0; i < tamanhoFuncionario; i++)
     {
-        printf("Codigo: %d\n", lista[i].codigo);
-        printf("Nome: %s\n", lista[i].nome);
-        printf("Idade: %d\n", lista[i].idade);
-        printf("Celular: %d\n", lista[i].celular);
-        printf("Cpf: %d\n", lista[i].cpf);
-        printf("Data de Aniversario: %d\n", lista[i].data);
-        printf("Cidade: %s\n", lista[i].cidade);
-        printf("E-mail: %s\n", lista[i].email);
+        printf("Codigo: %d\n", listaFuncionario[i].codigo);
+        printf("Nome: %s\n", listaFuncionario[i].nome);
+        printf("Idade: %d\n", listaFuncionario[i].idade);
+        printf("Celular: %s\n", listaFuncionario[i].celular);
+        printf("Cpf: %s\n", listaFuncionario[i].cpf);
+        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
+        printf("endereco: %s\n", listaFuncionario[i].endereco);
+        printf("E-mail: %s\n", listaFuncionario[i].email);
         printf("\n");
     }
 }
@@ -137,26 +147,42 @@ void atualizar()
     int codigo;
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
+    fflush(stdin);
 
     int i;
-    for (i = 0; i < tamanho; i++)
+    for (i = 0; i < tamanhoFuncionario; i++)
     {
-        if (lista[i].codigo == codigo)
+        if (listaFuncionario[i].codigo == codigo)
         {
-            printf("Digite o novo nome: ");
-            scanf("%s", lista[i].nome);
-            printf("Digite a idade: ");
-            scanf("%d", lista[i].idade);
-            printf("Digite o numero de telefone: ");
-            scanf("%s", lista[i].celular);
-            printf("Digite o cpf: ");
-            scanf("%s", lista[i].cpf);
-            printf("Digite a data do aniversario: ");
-            scanf("%s", lista[i].data);
-            printf("Digite a cidade: ");
-            scanf("%s", lista[i].cidade);
-            printf("Digite o e-mail: ");
-            scanf("%s", lista[i].email);
+    
+    printf("Digite o nome: ");
+    fgets(listaFuncionario[i].nome,50,stdin);
+    listaFuncionario[i].nome[strcspn(listaFuncionario[i].nome,"\n")]=0;
+    
+    printf("Digite a idade: ");
+    scanf("%d", &listaFuncionario[i].idade);
+    fflush(stdin);
+    
+    printf("Digite o numero de telefone: ");
+    fgets( listaFuncionario[i].celular,50,stdin);
+    listaFuncionario[i].celular[strcspn(listaFuncionario[i].celular,"\n")]=0;
+    
+    
+    printf("Digite o cpf: ");
+    fgets(listaFuncionario[i].cpf,50,stdin);
+    listaFuncionario[i].cpf[strcspn(listaFuncionario[i].cpf,"\n")]=0;
+    
+    printf("Ano de nascimento:");
+    scanf("%d", &listaFuncionario[i].data);
+    fflush(stdin);
+    
+    printf("Digite o endereco:  ");
+    fgets(listaFuncionario[i].endereco,50,stdin);
+    listaFuncionario[i].endereco[strcspn(listaFuncionario[i].endereco,"\n")]=0;
+    
+    printf("Digite o e-mail:  ");
+    fgets(listaFuncionario[i].email,50,stdin);
+            
             
             printf("Registro atualizado com sucesso.\n");
             return;
@@ -174,16 +200,16 @@ void excluir()
     scanf("%d", &codigo);
 
     int i;
-    for (i = 0; i < tamanho; i++)
+    for (i = 0; i < tamanhoFuncionario; i++)
     {
-        if (lista[i].codigo == codigo)
+        if (listaFuncionario[i].codigo == codigo)
         {
             int j;
-            for (j = i; j < tamanho - 1; j++)
+            for (j = i; j < tamanhoFuncionario - 1; j++)
             {
-                lista[j] = lista[j + 1];
+                listaFuncionario[j] = listaFuncionario[j + 1];
             }
-            tamanho--;
+            tamanhoFuncionario--;
             printf("Registro excluido com sucesso.\n");
             return;
         }
@@ -194,7 +220,7 @@ void excluir()
 // Funo para salvar os registros em um arquivo
 void Salvar()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVO, "wb");
+    FILE *arquivo = fopen(NOME_ARQUIVOFuncionario, "wb");
 
     if (!arquivo)
     {
@@ -202,7 +228,7 @@ void Salvar()
         return;
     }
 
-    fwrite(lista, sizeof(struct RegistroFuncionario), tamanho, arquivo);
+    fwrite(listaFuncionario, sizeof(struct RegistroFuncionario), tamanhoFuncionario, arquivo);
     fclose(arquivo);
 
     printf("Registros salvos com sucesso.\n");
@@ -211,7 +237,7 @@ void Salvar()
 // Funo para carregar os registros do arquivo
 void carregar()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVO, "rb");
+    FILE *arquivo = fopen(NOME_ARQUIVOFuncionario, "rb");
 
     if (!arquivo)
     {
@@ -219,7 +245,7 @@ void carregar()
         return;
     }
 
-    tamanho = fread(lista, sizeof(struct RegistroFuncionario), MAX_REGISTROS, arquivo);
+    tamanhoFuncionario = fread(listaFuncionario, sizeof(struct RegistroFuncionario), MAX_REGISTROS, arquivo);
     fclose(arquivo);
 
     printf("Registros carregados com sucesso.\n");

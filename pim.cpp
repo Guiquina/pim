@@ -4,9 +4,6 @@
 #include "funcionario.cpp"
 #include "cliente.cpp"
 
-
-
-
 void exibirMenu()
 {
     printf("\n-- MENU --\n");
@@ -16,8 +13,7 @@ void exibirMenu()
     printf("Digite uma opcao: ");
 }
 
-
-// Função principal
+// Funï¿½ï¿½o principal
 int main()
 {
     carregar();
@@ -32,22 +28,20 @@ int main()
         {
 
         case 1:
-            //Cliente();
+            menuCliente();
             break;
         case 2:
-        	menuFuncionario();
-        	break;
+            menuFuncionario();
+            break;
+
         default:
-            printf("Opcao invalida.\n");
+            printf("Opcao invalida. \n");
         }
-        
-    
-    } while (opcao != 0);
-    
+    }
+
+    while (opcao != 0);
+
     Salvar();
 
     return 0;
-    
 }
-
-
