@@ -2,85 +2,40 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Define o tamanho m·ximo da lista
+#define MAX_REGISTROS 100
 
+// Define o arquivo que ser· utilizado para persistir os dados
+const char *NOME_ARQUIVO = "registrosFuncionario.dat";
 
 // Define a struct que representa um registro
-struct Registro
+struct RegistroFuncionario
 {
     int codigo, idade, data; 
     char nome[50], cidade[50], email[50], celular[50], cpf[50];
 };
 
-// Define o tamanho m√°ximo da lista
-#define MAX_REGISTROS 100
-
-// Define o arquivo que ser√° utilizado para persistir os dados
-const char *NOME_ARQUIVO = "registros.dat";
-
 // Define a lista de registros
-struct Registro lista[MAX_REGISTROS];
+struct RegistroFuncionario lista[MAX_REGISTROS];
 
 // Define o tamanho atual da lista
 int tamanho = 0;
 
-// FunÔøΩÔøΩo para cadastrar um cliente
-void Cliente()
-{
-    if (tamanho >= MAX_REGISTROS)
-    {
-        printf("Nao e possivel cadastrar mais registros.\n");
-        return;
-    }
-    
-    struct Registro registro;
-    printf("Digite o codigo: ");
-    scanf("%d", &registro.codigo);
-    
-    printf("Digite o nome: ");
-    scanf("%s", &registro.nome);
-    
-    printf("Digite a idade: ");
-    scanf("%d", &registro.idade);
-    
-    printf("Digite o numero de telefone: ");
-    scanf("%f", &registro.celular);
-    
-    printf("Digite o cpf: ");
-    scanf("%d", &registro.cpf);
-    
-    printf("Digite o ano de nascimento:  ");
-    scanf("%d", &registro.data);
-    
-    printf("Digite a cidade:  ");
-    scanf("%s", &registro.cidade);
-    
-    printf("Digite o e-mail:  ");
-    scanf("%s", &registro.email);
-    
-
-    lista[tamanho] = registro;
-    tamanho++;
-
-    printf("Registro cadastrado com sucesso.\n");
-}
-
-void Funcionario(){
+void menuFuncionario(){
 
 
 	
-	printf("3. Cadastrar\n");
-    printf("4. Buscar\n");
-    printf("5. Listar\n");
-    printf("6. Atualizar\n");
-    printf("7. Salvar\n");
-    printf("8. Excluir\n");
+	printf("1. Cadastrar\n");
+    printf("2. Buscar\n");
+    printf("3. Listar\n");
+    printf("4. Atualizar\n");
+    printf("6. Excluir\n");
     printf("digite uma opcao: ");
     
 }
 
 
-
-void cadastrar()
+void cadastrarFuncionario()
 {
 
 	if (tamanho >= MAX_REGISTROS)
@@ -90,7 +45,7 @@ void cadastrar()
     }
     
 
-    struct Registro registro;
+    struct RegistroFuncionario registro;
     printf("Digite o codigo: ");
     scanf("%d", &registro.codigo);
     
@@ -126,7 +81,12 @@ void cadastrar()
 	
 }
 
-// Fun√ß√£o para buscar um registro pelo c√≥digo
+
+
+
+
+
+// FunÁ„o para buscar um registro pelo cÛdigo
 void buscar()
 {
     int codigo;
@@ -171,7 +131,7 @@ void listar()
     }
 }
 
-// FunÔøΩÔøΩo para atualizar um registro pelo codigo
+// Funùùo para atualizar um registro pelo codigo
 void atualizar()
 {
     int codigo;
@@ -206,7 +166,7 @@ void atualizar()
     printf("Registro nao encontrado.\n");
 }
 
-// FunÔøΩÔøΩo para excluir um registro pelo codigo
+// Funùùo para excluir um registro pelo codigo
 void excluir()
 {
     int codigo;
@@ -231,7 +191,7 @@ void excluir()
         printf("Registro nao encontrado.\n");
     }
 }
-// FunÔøΩÔøΩo para salvar os registros em um arquivo
+// Funùùo para salvar os registros em um arquivo
 void Salvar()
 {
     FILE *arquivo = fopen(NOME_ARQUIVO, "wb");
@@ -242,13 +202,13 @@ void Salvar()
         return;
     }
 
-    fwrite(lista, sizeof(struct Registro), tamanho, arquivo);
+    fwrite(lista, sizeof(struct RegistroFuncionario), tamanho, arquivo);
     fclose(arquivo);
 
     printf("Registros salvos com sucesso.\n");
 }
 
-// FunÔøΩÔøΩo para carregar os registros do arquivo
+// Funùùo para carregar os registros do arquivo
 void carregar()
 {
     FILE *arquivo = fopen(NOME_ARQUIVO, "rb");
@@ -259,72 +219,8 @@ void carregar()
         return;
     }
 
-    tamanho = fread(lista, sizeof(struct Registro), MAX_REGISTROS, arquivo);
+    tamanho = fread(lista, sizeof(struct RegistroFuncionario), MAX_REGISTROS, arquivo);
     fclose(arquivo);
 
     printf("Registros carregados com sucesso.\n");
-}
-
-// FunÔøΩÔøΩo para exibir o menu
-void exibirMenu()
-{
-    printf("\n-- MENU --\n");
-    printf("1. cliente\n");
-    printf("2. funcionario\n");
-    printf("0. Sair\n");
-    printf("Digite uma opcao: ");
-}
-
-// FunÔøΩÔøΩo principal
-int main()
-{
-    carregar();
-
-    int opcao;
-    do
-    {
-        exibirMenu();
-        scanf("%d", &opcao);
-
-        if(opcao == 2){
-        Funcionario();
-        scanf("%d", &opcao); 
-        
-        switch (opcao)
-        {
-        case 1:
-            Cliente();
-            break;
-        case 2:
-        	Funcionario();
-        	break;
-        case 3:
-            cadastrar();
-            break;
-        case 4:
-            buscar();
-            break;
-        case 5:
-            listar();
-            break;
-        case 6:
-            atualizar();
-            break;
-        case 7:
-            Salvar();
-            break;
-        case 8:
-        	excluir();
-        	break;
-        default:
-            printf("Opcao invalida.\n");
-        }
-        }
-        
-    } while (opcao != 0);
-    
-    Salvar();
-
-    return 0;
-    
 }
