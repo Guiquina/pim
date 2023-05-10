@@ -28,10 +28,10 @@ int main()
         {
 
         case 1:
-            menuCliente();
+            Cliente();
             break;
         case 2:
-            menuFuncionario();
+            Funcionario();
             break;
 
         default:
@@ -41,7 +41,6 @@ int main()
 
     while (opcao != 0);
 
-    Salvar();
 
     return 0;
 }

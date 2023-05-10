@@ -6,12 +6,12 @@
 #define MAX_REGISTROS 100
 
 // Define o arquivo que será utilizado para persistir os dados
-const char *NOME_ARQUIVOFuncionario = "registrosFuncionario.dat";
+const char *NOME_ARQUIVO_FUNCIONARIO = "registrosFuncionario.dat";
 
 // Define a struct que representa um registro
 struct RegistroFuncionario
 {
-    int codigo, idade, data; 
+    int codigo, idade, data;
     char nome[50], endereco[50], email[50], celular[50], cpf[50];
 };
 
@@ -20,20 +20,21 @@ struct RegistroFuncionario listaFuncionario[MAX_REGISTROS];
 
 // Define o tamanho atual da listaFuncionario
 int tamanhoFuncionario = 0;
-
+int opcaoFuncionario;
         
 void menuFuncionario(){
 
 
 	
-	printf("4. Cadastrar\n");
-    printf("5. Buscar\n");
-    printf("6. Listar\n");
-    printf("7. Atualizar\n");
-    printf("8. Excluir\n");
-    printf("9. salvar\n");
+	printf("1. Cadastrar\n");
+    printf("2. Buscar\n");
+    printf("3. Listar\n");
+    printf("4. Atualizar\n");
+    printf("5. Excluir\n");
+    printf("6. salvar\n");
+    printf("0. sair\n");
     printf("digite uma opcao: ");
-    
+
 }
 
 
@@ -124,7 +125,7 @@ void buscarFuncionario()
 }
 
 // Funcao para listar todos os registros
-void listar()
+void listarFuncionario()
 {
     int i;
     for (i = 0; i < tamanhoFuncionario; i++)
@@ -142,7 +143,7 @@ void listar()
 }
 
 // Funo para atualizar um registro pelo codigo
-void atualizar()
+void atualizarFuncionario()
 {
     int codigo;
     printf("Digite o codigo: ");
@@ -193,7 +194,7 @@ void atualizar()
 }
 
 // Funo para excluir um registro pelo codigo
-void excluir()
+void excluirFuncionario()
 {
     int codigo;
     printf("Digite o codigo: ");
@@ -218,9 +219,9 @@ void excluir()
     }
 }
 // Funo para salvar os registros em um arquivo
-void Salvar()
+void salvarFuncionario()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVOFuncionario, "wb");
+    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "wb");
 
     if (!arquivo)
     {
@@ -237,7 +238,7 @@ void Salvar()
 // Funo para carregar os registros do arquivo
 void carregar()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVOFuncionario, "rb");
+    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "rb");
 
     if (!arquivo)
     {
@@ -249,4 +250,49 @@ void carregar()
     fclose(arquivo);
 
     printf("Registros carregados com sucesso.\n");
+}
+
+int Funcionario()
+{
+
+    int opcaoFuncionario;
+do
+{
+    menuFuncionario();
+    scanf("%d", &opcaoFuncionario);
+    
+
+    switch (opcaoFuncionario)
+    {
+    case 1:
+        cadastrarFuncionario();
+        break;
+    case 2:
+        buscarFuncionario();
+        break;
+    case 3:
+        listarFuncionario();
+        break;
+    case 4:
+        atualizarFuncionario();
+        break;
+    case 5:
+        excluirFuncionario();
+        break;
+    case 6:
+        salvarFuncionario();
+        break;
+    default:
+        printf("Opcao invalida. \n");
+    }
+}
+
+
+
+
+while (opcaoFuncionario != 0 );
+
+    salvarFuncionario();
+
+    return 0;
 }
