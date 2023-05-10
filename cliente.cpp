@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define o tamanho máximo da listaCliente
+// Define o tamanho mï¿½ximo da listaCliente
 #define MAX_REGISTROS 100
 
-// Define o arquivo que será utilizado para persistir os dados
-const char *NOME_ARQUIVOCliente = "registrosCliente.dat";
+// Define o arquivo que serï¿½ utilizado para persistir os dados
+const char *NOME_ARQUIVO_CLIENTE = "registrosCliente.dat";
 
 // Define a struct que representa um registro
 struct RegistroCliente
@@ -21,20 +21,24 @@ struct RegistroCliente listaCliente[MAX_REGISTROS];
 // Define o tamanho atual da listaCliente
 int tamanhoCliente = 0;
 
-        
 void menuCliente(){
 
 
 	
-	printf("4. Cadastrar\n");
-    printf("5. Buscar\n");
-    printf("6. Listar\n");
-    printf("7. Atualizar\n");
-    printf("8. Excluir\n");
-    printf("9. salvar\n");
+	printf("1. Cadastrar\n");
+    printf("2. Buscar\n");
+    printf("3. Listar\n");
+    printf("4. Atualizar\n");
+    printf("5. Excluir\n");
+    printf("6. salvar\n");
+    printf("0. sair\n");
     printf("digite uma opcao: ");
+
+
+    
     
 }
+
 
 
 void cadastrarcliente()
@@ -96,7 +100,7 @@ void cadastrarcliente()
 
 
 
-// Função para buscar um registro pelo código
+// Funï¿½ï¿½o para buscar um registro pelo cï¿½digo
 void buscarCliente()
 {
     int codigo;
@@ -192,7 +196,7 @@ void atualizarCliente()
     printf("Registro nao encontrado.\n");
 }
 
-// Função para excluir um registro pelo codigo
+// Funï¿½ï¿½o para excluir um registro pelo codigo
 void excluirCliente()
 {
     int codigo;
@@ -217,10 +221,10 @@ void excluirCliente()
         printf("Registro nao encontrado.\n");
     }
 }
-// Função para salvar os registros em um arquivo
-void SalvarCliente()
+// FunÃ§Ã£o para salvar os registros em um arquivo
+void salvarCliente()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVOCliente, "wb");
+    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "wb");
 
     if (!arquivo)
     {
@@ -234,10 +238,10 @@ void SalvarCliente()
     printf("Registros salvos com sucesso.\n");
 }
 
-// Função para carregar os registros do arquivo
+// FunÃ§Ã£o para carregar os registros do arquivo
 void carregarCliente()
 {
-    FILE *arquivo = fopen(NOME_ARQUIVOCliente, "rb");
+    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "rb");
 
     if (!arquivo)
     {
@@ -249,4 +253,50 @@ void carregarCliente()
     fclose(arquivo);
 
     printf("Registros carregados com sucesso.\n");
+}
+
+
+int Cliente()
+{
+
+    int opcaocliente;
+do
+{
+    menuCliente();
+    scanf("%d", &opcaocliente);
+    
+
+    switch (opcaocliente)
+    {
+    case 1:
+        cadastrarcliente();
+        break;
+    case 2:
+        buscarCliente();
+        break;
+    case 3:
+        listarCliente();
+        break;
+    case 4:
+        atualizarCliente();
+        break;
+    case 5:
+        excluirCliente();
+        break;
+    case 6:
+        salvarCliente();
+        break;
+    default:
+        printf("Opcao invalida. \n");
+    }
+}
+
+
+
+
+while (opcaocliente != 0 );
+
+    salvarCliente();
+
+    return 0;
 }
