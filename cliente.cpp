@@ -49,6 +49,23 @@ void cadastrarcliente()
         printf("Nao e possivel cadastrar mais registros.\n");
         return;
     }
+
+    void listarCliente();
+{
+    int i;
+    for (i = 0; i < tamanhoCliente; i++)
+    {
+        printf("Codigo: %d\n", listaCliente[i].codigo);
+        printf("Nome: %s\n", listaCliente[i].nome);
+        printf("Idade: %d\n", listaCliente[i].idade);
+        printf("Celular: %s\n", listaCliente[i].celular);
+        printf("Cpf: %s\n", listaCliente[i].cpf);
+        printf("Data de Aniversario: %d\n", listaCliente[i].data);
+        printf("endereco: %s\n", listaCliente[i].endereco);
+        printf("E-mail: %s\n", listaCliente[i].email);
+        printf("\n");
+    }
+}
     
 
     struct RegistroCliente registro;
@@ -107,7 +124,7 @@ void buscarCliente()
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
 
-    int i;
+    int i = 0;
     for (i = 0; i < tamanhoCliente; i++)
     {
         if  (listaCliente[i].codigo == codigo)
@@ -286,6 +303,7 @@ do
     case 6:
         salvarCliente();
         break;
+
     default:
         printf("Opcao invalida. \n");
     }

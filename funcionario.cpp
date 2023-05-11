@@ -46,6 +46,25 @@ void cadastrarFuncionario()
         printf("Nao e possivel cadastrar mais registros.\n");
         return;
     }
+
+     void listarFuncionario();
+{
+    int i;
+    for (i = 0; i < tamanhoFuncionario; i++)
+    {
+        printf("Codigo: %d\n", listaFuncionario[i].codigo);
+        printf("Nome: %s\n", listaFuncionario[i].nome);
+        printf("Idade: %d\n", listaFuncionario[i].idade);
+        printf("Celular: %s\n", listaFuncionario[i].celular);
+        printf("Cpf: %s\n", listaFuncionario[i].cpf);
+        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
+        printf("endereco: %s\n", listaFuncionario[i].endereco);
+        printf("E-mail: %s\n", listaFuncionario[i].email);
+        printf("\n");
+    }
+}
+
+    
     
 
     struct RegistroFuncionario registro;
@@ -84,12 +103,31 @@ void cadastrarFuncionario()
 
     
 
+    
+
     listaFuncionario[tamanhoFuncionario] = registro;
     tamanhoFuncionario++;
 
     printf("Registro cadastrado com sucesso.\n");
 
 	
+}
+
+void listarFuncionario()
+{
+    int i;
+    for (i = 0; i < tamanhoFuncionario; i++)
+    {
+        printf("Codigo: %d\n", listaFuncionario[i].codigo);
+        printf("Nome: %s\n", listaFuncionario[i].nome);
+        printf("Idade: %d\n", listaFuncionario[i].idade);
+        printf("Celular: %s\n", listaFuncionario[i].celular);
+        printf("Cpf: %s\n", listaFuncionario[i].cpf);
+        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
+        printf("endereco: %s\n", listaFuncionario[i].endereco);
+        printf("E-mail: %s\n", listaFuncionario[i].email);
+        printf("\n");
+    }
 }
 
 
@@ -125,22 +163,7 @@ void buscarFuncionario()
 }
 
 // Funcao para listar todos os registros
-void listarFuncionario()
-{
-    int i;
-    for (i = 0; i < tamanhoFuncionario; i++)
-    {
-        printf("Codigo: %d\n", listaFuncionario[i].codigo);
-        printf("Nome: %s\n", listaFuncionario[i].nome);
-        printf("Idade: %d\n", listaFuncionario[i].idade);
-        printf("Celular: %s\n", listaFuncionario[i].celular);
-        printf("Cpf: %s\n", listaFuncionario[i].cpf);
-        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
-        printf("endereco: %s\n", listaFuncionario[i].endereco);
-        printf("E-mail: %s\n", listaFuncionario[i].email);
-        printf("\n");
-    }
-}
+
 
 // Funo para atualizar um registro pelo codigo
 void atualizarFuncionario()
@@ -236,7 +259,7 @@ void salvarFuncionario()
 }
 
 // Funo para carregar os registros do arquivo
-void carregar()
+void carregarFuncionario()
 {
     FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "rb");
 
@@ -271,8 +294,8 @@ do
         buscarFuncionario();
         break;
     case 3:
-        listarFuncionario();
-        break;
+         listarFuncionario();
+         break;
     case 4:
         atualizarFuncionario();
         break;
@@ -282,6 +305,7 @@ do
     case 6:
         salvarFuncionario();
         break;
+    
     default:
         printf("Opcao invalida. \n");
     }

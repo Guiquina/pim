@@ -16,7 +16,8 @@ void exibirMenu()
 // Fun��o principal
 int main()
 {
-    carregar();
+    carregarFuncionario();
+    carregarCliente();
 
     int opcao;
     do
