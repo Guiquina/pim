@@ -31,7 +31,6 @@ void menuFuncionario(){
     printf("3. Listar\n");
     printf("4. Atualizar\n");
     printf("5. Excluir\n");
-    printf("6. salvar\n");
     printf("0. sair\n");
     printf("digite uma opcao: ");
 
@@ -104,7 +103,7 @@ void cadastrarFuncionario()
     fgets(registro.cpf,50,stdin);
     registro.cpf[strcspn(registro.cpf,"\n")]=0;
     
-    printf("Ano de nascimento:");
+    printf("Ano de nascimento: ");
     scanf("%d", &registro.data);
     fflush(stdin);
     
@@ -296,7 +295,7 @@ do
 
 
 
-while (opcaoFuncionario != 0 );
+while (opcaoFuncionario == 0 );
 
     salvarFuncionario();
 
