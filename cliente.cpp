@@ -50,32 +50,12 @@ void cadastrarcliente()
         return;
     }
 
-    void listarCliente();
-{
-    int i;
-    for (i = 0; i < tamanhoCliente; i++)
-    {
-        printf("Codigo: %d\n", listaCliente[i].codigo);
-        printf("Nome: %s\n", listaCliente[i].nome);
-        printf("Idade: %d\n", listaCliente[i].idade);
-        printf("Celular: %s\n", listaCliente[i].celular);
-        printf("Cpf: %s\n", listaCliente[i].cpf);
-        printf("Data de Aniversario: %d\n", listaCliente[i].data);
-        printf("endereco: %s\n", listaCliente[i].endereco);
-        printf("E-mail: %s\n", listaCliente[i].email);
-        printf("\n");
-    }
-}
-    
 
     struct RegistroCliente registro;
-    printf("Digite o codigo: ");
-    scanf("%d", &registro.codigo);
-    fflush(stdin);
     
     printf("Digite o nome: ");
-    fgets(registro.nome,50,stdin);
-    registro.nome[strcspn(registro.nome,"\n")]=0;
+    scanf("%s", &registro.nome);
+    fflush(stdin);
     
     printf("Digite a idade: ");
     scanf("%d", &registro.idade);
@@ -100,7 +80,8 @@ void cadastrarcliente()
     
     printf("Digite o e-mail:  ");
     fgets(registro.email,50,stdin);
-    //scanf("%s", &registro.email);
+    
+    registro.codigo = tamanhoCliente;
 
     
 
@@ -124,8 +105,8 @@ void buscarCliente()
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
 
-    int i = 0;
-    for (i = 0; i < tamanhoCliente; i++)
+    int i ;
+    for (i = 1; i < tamanhoCliente; i++)
     {
         if  (listaCliente[i].codigo == codigo)
         {
@@ -148,7 +129,7 @@ void buscarCliente()
 void listarCliente()
 {
     int i;
-    for (i = 0; i < tamanhoCliente; i++)
+    for (i = 1; i < tamanhoCliente; i++)
     {
         printf("Codigo: %d\n", listaCliente[i].codigo);
         printf("Nome: %s\n", listaCliente[i].nome);
@@ -171,7 +152,7 @@ void atualizarCliente()
     fflush(stdin);
 
     int i;
-    for (i = 0; i < tamanhoCliente; i++)
+    for (i = 1; i < tamanhoCliente; i++)
     {
         if  (listaCliente[i].codigo == codigo)
         {

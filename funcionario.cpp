@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define o tamanho máximo da listaFuncionario
+// Define o tamanho mï¿½ximo da listaFuncionario
 #define MAX_REGISTROS 100
 
-// Define o arquivo que será utilizado para persistir os dados
+// Define o arquivo que serï¿½ utilizado para persistir os dados
 const char *NOME_ARQUIVO_FUNCIONARIO = "registrosFuncionario.dat";
 
 // Define a struct que representa um registro
@@ -37,6 +37,40 @@ void menuFuncionario(){
 
 }
 
+void carregarFuncionario()
+{
+    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "rb");
+
+    if (!arquivo)
+    {
+        printf("Nao foi possivel abrir o arquivo para leitura.\n");
+        return;
+    }
+
+    tamanhoFuncionario = fread(listaFuncionario, sizeof(struct RegistroFuncionario), MAX_REGISTROS, arquivo);
+    fclose(arquivo);
+
+    printf("Registros carregados com sucesso.\n");
+}
+
+void salvarFuncionario()
+{
+    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "wb");
+
+    if (!arquivo)
+    {
+        printf("Nao foi possivel abrir o arquivo para escrita.\n");
+        return;
+    }
+    
+
+    fwrite(listaFuncionario, sizeof(struct RegistroFuncionario), tamanhoFuncionario, arquivo);
+    fclose(arquivo);
+
+    printf("Registros salvos com sucesso.\n");
+}
+
+
 
 void cadastrarFuncionario()
 {
@@ -47,34 +81,15 @@ void cadastrarFuncionario()
         return;
     }
 
-     void listarFuncionario();
-{
-    int i;
-    for (i = 0; i < tamanhoFuncionario; i++)
-    {
-        printf("Codigo: %d\n", listaFuncionario[i].codigo);
-        printf("Nome: %s\n", listaFuncionario[i].nome);
-        printf("Idade: %d\n", listaFuncionario[i].idade);
-        printf("Celular: %s\n", listaFuncionario[i].celular);
-        printf("Cpf: %s\n", listaFuncionario[i].cpf);
-        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
-        printf("endereco: %s\n", listaFuncionario[i].endereco);
-        printf("E-mail: %s\n", listaFuncionario[i].email);
-        printf("\n");
-    }
-}
-
-    
-    
-
+     
     struct RegistroFuncionario registro;
-    printf("Digite o codigo: ");
-    scanf("%d", &registro.codigo);
-    fflush(stdin);
+    
     
     printf("Digite o nome: ");
-    fgets(registro.nome,50,stdin);
-    registro.nome[strcspn(registro.nome,"\n")]=0;
+    scanf("%s", &registro.nome);
+    fflush(stdin);
+    
+    
     
     printf("Digite a idade: ");
     scanf("%d", &registro.idade);
@@ -99,43 +114,23 @@ void cadastrarFuncionario()
     
     printf("Digite o e-mail:  ");
     fgets(registro.email,50,stdin);
-    //scanf("%s", &registro.email);
 
+
+    carregarFuncionario();
+    registro.codigo = tamanhoFuncionario;
     
-
-    
-
     listaFuncionario[tamanhoFuncionario] = registro;
     tamanhoFuncionario++;
-
+    salvarFuncionario();
     printf("Registro cadastrado com sucesso.\n");
 
 	
 }
 
-void listarFuncionario()
-{
-    int i;
-    for (i = 0; i < tamanhoFuncionario; i++)
-    {
-        printf("Codigo: %d\n", listaFuncionario[i].codigo);
-        printf("Nome: %s\n", listaFuncionario[i].nome);
-        printf("Idade: %d\n", listaFuncionario[i].idade);
-        printf("Celular: %s\n", listaFuncionario[i].celular);
-        printf("Cpf: %s\n", listaFuncionario[i].cpf);
-        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
-        printf("endereco: %s\n", listaFuncionario[i].endereco);
-        printf("E-mail: %s\n", listaFuncionario[i].email);
-        printf("\n");
-    }
-}
 
 
 
-
-
-
-// Função para buscar um registro pelo código
+// Funï¿½ï¿½o para buscar um registro pelo cï¿½digo
 void buscarFuncionario()
 {
     int codigo;
@@ -162,10 +157,29 @@ void buscarFuncionario()
     printf("Registro nao encontrado.\n");
 }
 
+
+void listarFuncionario()
+{
+
+    carregarFuncionario();
+    int i;
+    for (i = 0; i < tamanhoFuncionario; i++)
+    {
+        printf("Codigo: %d\n", listaFuncionario[i].codigo);
+        printf("Nome: %s\n", listaFuncionario[i].nome);
+        printf("Idade: %d\n", listaFuncionario[i].idade);
+        printf("Celular: %s\n", listaFuncionario[i].celular);
+        printf("Cpf: %s\n", listaFuncionario[i].cpf);
+        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
+        printf("endereco: %s\n", listaFuncionario[i].endereco);
+        printf("E-mail: %s\n", listaFuncionario[i].email);
+        printf("\n");
+    }
+}
 // Funcao para listar todos os registros
 
 
-// Funo para atualizar um registro pelo codigo
+// Funï¿½ï¿½o para atualizar um registro pelo codigo
 void atualizarFuncionario()
 {
     int codigo;
@@ -216,7 +230,7 @@ void atualizarFuncionario()
     printf("Registro nao encontrado.\n");
 }
 
-// Funo para excluir um registro pelo codigo
+// Funï¿½ï¿½o para excluir um registro pelo codigo
 void excluirFuncionario()
 {
     int codigo;
@@ -241,39 +255,10 @@ void excluirFuncionario()
         printf("Registro nao encontrado.\n");
     }
 }
-// Funo para salvar os registros em um arquivo
-void salvarFuncionario()
-{
-    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "wb");
+// Funï¿½ï¿½o para salvar os registros em um arquivo
 
-    if (!arquivo)
-    {
-        printf("Nao foi possivel abrir o arquivo para escrita.\n");
-        return;
-    }
 
-    fwrite(listaFuncionario, sizeof(struct RegistroFuncionario), tamanhoFuncionario, arquivo);
-    fclose(arquivo);
-
-    printf("Registros salvos com sucesso.\n");
-}
-
-// Funo para carregar os registros do arquivo
-void carregarFuncionario()
-{
-    FILE *arquivo = fopen(NOME_ARQUIVO_FUNCIONARIO, "rb");
-
-    if (!arquivo)
-    {
-        printf("Nao foi possivel abrir o arquivo para leitura.\n");
-        return;
-    }
-
-    tamanhoFuncionario = fread(listaFuncionario, sizeof(struct RegistroFuncionario), MAX_REGISTROS, arquivo);
-    fclose(arquivo);
-
-    printf("Registros carregados com sucesso.\n");
-}
+// Funï¿½ï¿½o para carregar os registros do arquivo
 
 int Funcionario()
 {
@@ -301,9 +286,6 @@ do
         break;
     case 5:
         excluirFuncionario();
-        break;
-    case 6:
-        salvarFuncionario();
         break;
     
     default:
