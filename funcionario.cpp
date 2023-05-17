@@ -69,7 +69,23 @@ void salvarFuncionario()
     printf("Registros salvos com sucesso.\n");
 }
 
+int gerarCodigoFuncionario(){
 
+
+1    int i, codigo = 0, adicionar = 0;
+    for(i = 0; i < tamanhoFuncionario; i++)
+    {
+        if( listaFuncionario[i].codigo != codigo){
+
+            adicionar = listaFuncionario[i].codigo;
+        }
+      
+
+     
+    }
+    return adicionar + 1;
+
+}
 
 void cadastrarFuncionario()
 {
@@ -114,17 +130,24 @@ void cadastrarFuncionario()
     printf("Digite o e-mail:  ");
     fgets(registro.email,50,stdin);
 
-
-    carregarFuncionario();
-    registro.codigo = tamanhoFuncionario;
     
+    carregarFuncionario();
+    registro.codigo = gerarCodigoFuncionario();
     listaFuncionario[tamanhoFuncionario] = registro;
     tamanhoFuncionario++;
     salvarFuncionario();
     printf("Registro cadastrado com sucesso.\n");
-
+    
 	
 }
+
+
+
+
+
+    
+
+
 
 
 
@@ -159,7 +182,7 @@ void buscarFuncionario()
 
 void listarFuncionario()
 {
-
+    
     carregarFuncionario();
     int i;
     for (i = 0; i < tamanhoFuncionario; i++)
@@ -287,15 +310,14 @@ do
         excluirFuncionario();
         break;
     
-    default:
-        printf("Opcao invalida. \n");
+    
     }
 }
 
 
 
 
-while (opcaoFuncionario == 0 );
+while (opcaoFuncionario != 0 );
 
     salvarFuncionario();
 
