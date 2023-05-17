@@ -35,8 +35,7 @@ int main()
             Funcionario();
             break;
 
-        default:
-            printf("Opcao invalida. \n");
+        
         }
     }
 

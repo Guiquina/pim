@@ -30,13 +30,44 @@ void menuCliente(){
     printf("3. Listar\n");
     printf("4. Atualizar\n");
     printf("5. Excluir\n");
-    printf("6. salvar\n");
     printf("0. sair\n");
     printf("digite uma opcao: ");
 
 
     
     
+}
+
+void carregarCliente()
+{
+    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "rb");
+
+    if (!arquivo)
+    {
+        printf("Nao foi possivel abrir o arquivo para leitura.\n");
+        return;
+    }
+
+    tamanhoCliente = fread (listaCliente, sizeof(struct RegistroCliente), MAX_REGISTROS, arquivo);
+    fclose(arquivo);
+
+    printf("Registros carregados com sucesso.\n");
+}
+
+void salvarCliente()
+{
+    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "wb");
+
+    if (!arquivo)
+    {
+        printf("Nao foi possivel abrir o arquivo para escrita.\n");
+        return;
+    }
+
+    fwrite (listaCliente, sizeof(struct RegistroCliente), tamanhoCliente, arquivo);
+    fclose(arquivo);
+
+    printf("Registros salvos com sucesso.\n");
 }
 
 
@@ -81,17 +112,20 @@ void cadastrarcliente()
     printf("Digite o e-mail:  ");
     fgets(registro.email,50,stdin);
     
+    carregarCliente();
     registro.codigo = tamanhoCliente;
 
     
 
- listaCliente[tamanhoCliente] = registro;
+    listaCliente[tamanhoCliente] = registro;
     tamanhoCliente++;
-
+    salvarCliente();
     printf("Registro cadastrado com sucesso.\n");
 
 	
 }
+
+
 
 
 
@@ -128,6 +162,9 @@ void buscarCliente()
 // Funcao para listar todos os registros
 void listarCliente()
 {
+
+    carregarCliente();
+
     int i;
     for (i = 1; i < tamanhoCliente; i++)
     {
@@ -219,39 +256,8 @@ void excluirCliente()
         printf("Registro nao encontrado.\n");
     }
 }
-// Função para salvar os registros em um arquivo
-void salvarCliente()
-{
-    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "wb");
 
-    if (!arquivo)
-    {
-        printf("Nao foi possivel abrir o arquivo para escrita.\n");
-        return;
-    }
 
-    fwrite (listaCliente, sizeof(struct RegistroCliente), tamanhoCliente, arquivo);
-    fclose(arquivo);
-
-    printf("Registros salvos com sucesso.\n");
-}
-
-// Função para carregar os registros do arquivo
-void carregarCliente()
-{
-    FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "rb");
-
-    if (!arquivo)
-    {
-        printf("Nao foi possivel abrir o arquivo para leitura.\n");
-        return;
-    }
-
-    tamanhoCliente = fread (listaCliente, sizeof(struct RegistroCliente), MAX_REGISTROS, arquivo);
-    fclose(arquivo);
-
-    printf("Registros carregados com sucesso.\n");
-}
 
 
 int Cliente()
@@ -281,12 +287,8 @@ do
     case 5:
         excluirCliente();
         break;
-    case 6:
-        salvarCliente();
-        break;
-
-    default:
-        printf("Opcao invalida. \n");
+    
+    
     }
 }
 
