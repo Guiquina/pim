@@ -11,31 +11,26 @@ const char *NOME_ARQUIVO_CLIENTE = "registrosCliente.dat";
 // Define a struct que representa um registro
 struct RegistroCliente
 {
-    int codigo, idade, data; 
+    int codigo, idade, data;
     char nome[50], endereco[50], email[50], celular[50], cpf[50];
 };
 
 // Define a listaCliente de registros
-struct RegistroCliente listaCliente[MAX_REGISTROS];
-
+RegistroCliente listaCliente[MAX_REGISTROS];
+RegistroCliente novaListacliente[MAX_REGISTROS];
 // Define o tamanho atual da listaCliente
 int tamanhoCliente = 0;
+int opcaoCliente;
+void menuCliente()
+{
 
-void menuCliente(){
-
-
-	
-	printf("1. Cadastrar\n");
+    printf("1. Cadastrar\n");
     printf("2. Buscar\n");
     printf("3. Listar\n");
     printf("4. Atualizar\n");
     printf("5. Excluir\n");
     printf("0. sair\n");
     printf("digite uma opcao: ");
-
-
-    
-    
 }
 
 void carregarCliente()
@@ -48,7 +43,7 @@ void carregarCliente()
         return;
     }
 
-    tamanhoCliente = fread (listaCliente, sizeof(struct RegistroCliente), MAX_REGISTROS, arquivo);
+    tamanhoCliente = fread(listaCliente, sizeof(struct RegistroCliente), MAX_REGISTROS, arquivo);
     fclose(arquivo);
 
     printf("Registros carregados com sucesso.\n");
@@ -64,73 +59,73 @@ void salvarCliente()
         return;
     }
 
-    fwrite (listaCliente, sizeof(struct RegistroCliente), tamanhoCliente, arquivo);
+    fwrite(listaCliente, sizeof(struct RegistroCliente), tamanhoCliente, arquivo);
     fclose(arquivo);
 
     printf("Registros salvos com sucesso.\n");
 }
 
+int gerarCodigoCliente()
+{
 
+    int i, codigo = 0, adicionar = 0;
+    for (i = 0; i < tamanhoCliente; i++)
+    {
+
+        if (listaCliente[i].codigo != codigo)
+        {
+
+            adicionar = listaCliente[i].codigo;
+        }
+    }
+    return adicionar + 1;
+}
 
 void cadastrarcliente()
 {
 
-	if (tamanhoCliente >= MAX_REGISTROS)
+    if (tamanhoCliente >= MAX_REGISTROS)
     {
         printf("Nao e possivel cadastrar mais registros.\n");
         return;
     }
 
-
     struct RegistroCliente registro;
-    
+
     printf("Digite o nome: ");
     scanf("%s", &registro.nome);
     fflush(stdin);
-    
+
     printf("Digite a idade: ");
     scanf("%d", &registro.idade);
     fflush(stdin);
-    
+
     printf("Digite o numero de telefone: ");
-    fgets( registro.celular,50,stdin);
-    registro.celular[strcspn(registro.celular,"\n")]=0;
-    
-    
+    fgets(registro.celular, 50, stdin);
+    registro.celular[strcspn(registro.celular, "\n")] = 0;
+
     printf("Digite o cpf: ");
-    fgets(registro.cpf,50,stdin);
-    registro.cpf[strcspn(registro.cpf,"\n")]=0;
-    
+    fgets(registro.cpf, 50, stdin);
+    registro.cpf[strcspn(registro.cpf, "\n")] = 0;
+
     printf("Ano de nascimento:");
     scanf("%d", &registro.data);
     fflush(stdin);
-    
+
     printf("Digite o endereco:  ");
-    fgets(registro.endereco,50,stdin);
-    registro.endereco[strcspn(registro.endereco,"\n")]=0;
-    
+    fgets(registro.endereco, 50, stdin);
+    registro.endereco[strcspn(registro.endereco, "\n")] = 0;
+
     printf("Digite o e-mail:  ");
-    fgets(registro.email,50,stdin);
-    
+    fgets(registro.email, 50, stdin);
+
     carregarCliente();
-    registro.codigo = tamanhoCliente;
-
-    
-
+    registro.codigo = gerarCodigoCliente();
     listaCliente[tamanhoCliente] = registro;
     tamanhoCliente++;
     salvarCliente();
     printf("Registro cadastrado com sucesso.\n");
-
-	
 }
-
-
-
-
-
-
-
 
 // Fun��o para buscar um registro pelo c�digo
 void buscarCliente()
@@ -139,10 +134,10 @@ void buscarCliente()
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
 
-    int i ;
+    int i;
     for (i = 1; i < tamanhoCliente; i++)
     {
-        if  (listaCliente[i].codigo == codigo)
+        if (listaCliente[i].codigo == codigo)
         {
             printf("Codigo: %d\n", listaCliente[i].codigo);
             printf("Nome: %s\n", listaCliente[i].nome);
@@ -166,7 +161,7 @@ void listarCliente()
     carregarCliente();
 
     int i;
-    for (i = 1; i < tamanhoCliente; i++)
+    for (i = 0; i < tamanhoCliente; i++)
     {
         printf("Codigo: %d\n", listaCliente[i].codigo);
         printf("Nome: %s\n", listaCliente[i].nome);
@@ -189,41 +184,40 @@ void atualizarCliente()
     fflush(stdin);
 
     int i;
-    for (i = 1; i < tamanhoCliente; i++)
+    for (i = 0; i < tamanhoCliente; i++)
     {
-        if  (listaCliente[i].codigo == codigo)
+        if (listaCliente[i].codigo == codigo)
         {
-    
-    printf("Digite o nome: ");
-    fgets (listaCliente[i].nome,50,stdin);
- listaCliente[i].nome[strcspn (listaCliente[i].nome,"\n")]=0;
-    
-    printf("Digite a idade: ");
-    scanf("%d",  listaCliente[i].idade);
-    fflush(stdin);
-    
-    printf("Digite o numero de telefone: ");
-    fgets( listaCliente[i].celular,50,stdin);
- listaCliente[i].celular[strcspn (listaCliente[i].celular,"\n")]=0;
-    
-    
-    printf("Digite o cpf: ");
-    fgets (listaCliente[i].cpf,50,stdin);
- listaCliente[i].cpf[strcspn (listaCliente[i].cpf,"\n")]=0;
-    
-    printf("Ano de nascimento:");
-    scanf("%d",  listaCliente[i].data);
-    fflush(stdin);
-    
-    printf("Digite o endereco:  ");
-    fgets (listaCliente[i].endereco,50,stdin);
- listaCliente[i].endereco[strcspn (listaCliente[i].endereco,"\n")]=0;
-    
-    printf("Digite o e-mail:  ");
-    fgets (listaCliente[i].email,50,stdin);
-            
-            
+
+            printf("Digite o nome: ");
+            fgets(listaCliente[i].nome, 50, stdin);
+            listaCliente[i].nome[strcspn(listaCliente[i].nome, "\n")] = 0;
+
+            printf("Digite a idade: ");
+            scanf("%d", &listaCliente[i].idade);
+            fflush(stdin);
+
+            printf("Digite o numero de telefone: ");
+            fgets(listaCliente[i].celular, 50, stdin);
+            listaCliente[i].celular[strcspn(listaCliente[i].celular, "\n")] = 0;
+
+            printf("Digite o cpf: ");
+            fgets(listaCliente[i].cpf, 50, stdin);
+            listaCliente[i].cpf[strcspn(listaCliente[i].cpf, "\n")] = 0;
+
+            printf("Ano de nascimento:");
+            scanf("%d", &listaCliente[i].data);
+            fflush(stdin);
+
+            printf("Digite o endereco:  ");
+            fgets(listaCliente[i].endereco, 50, stdin);
+            listaCliente[i].endereco[strcspn(listaCliente[i].endereco, "\n")] = 0;
+
+            printf("Digite o e-mail:  ");
+            fgets(listaCliente[i].email, 50, stdin);
+
             printf("Registro atualizado com sucesso.\n");
+            salvarCliente();
             return;
         }
     }
@@ -238,64 +232,70 @@ void excluirCliente()
     printf("Digite o codigo: ");
     scanf("%d", &codigo);
 
+    int posicaoNovalistacliente = 0;
     int i;
     for (i = 0; i < tamanhoCliente; i++)
     {
-        if  (listaCliente[i].codigo == codigo)
+        if (listaCliente[i].codigo != codigo)
         {
-            int j;
-            for (j = i; j < tamanhoCliente - 1; j++)
+            novaListacliente[posicaoNovalistacliente] = listaCliente[i];
+
+            posicaoNovalistacliente++;
+
+            FILE *arquivo = fopen(NOME_ARQUIVO_CLIENTE, "wb");
+
+            if (!arquivo)
             {
-             listaCliente[j] = listaCliente[j + 1];
+                printf("Nao foi possivel abrir o arquivo para escrita.\n");
+                return;
             }
-            tamanhoCliente--;
-            printf("Registro excluido com sucesso.\n");
-            return;
+
+            fwrite(novaListacliente, sizeof(struct RegistroCliente), posicaoNovalistacliente, arquivo);
+            fclose(arquivo);
         }
+        else if(listaCliente[i].codigo == codigo){
 
-        printf("Registro nao encontrado.\n");
+            tamanhoCliente - 1;
+        }
+        else
+        {
+          printf("Registro nao encontrado.\n");
+        }
+     
     }
+    printf("registro excluido com sucesso.\n");
 }
-
-
-
 
 int Cliente()
 {
 
     int opcaocliente;
-do
-{
-    menuCliente();
-    scanf("%d", &opcaocliente);
-    
-
-    switch (opcaocliente)
+    do
     {
-    case 1:
-        cadastrarcliente();
-        break;
-    case 2:
-        buscarCliente();
-        break;
-    case 3:
-        listarCliente();
-        break;
-    case 4:
-        atualizarCliente();
-        break;
-    case 5:
-        excluirCliente();
-        break;
-    
-    
+        menuCliente();
+        scanf("%d", &opcaocliente);
+
+        switch (opcaocliente)
+        {
+        case 1:
+            cadastrarcliente();
+            break;
+        case 2:
+            buscarCliente();
+            break;
+        case 3:
+            listarCliente();
+            break;
+        case 4:
+            atualizarCliente();
+            break;
+        case 5:
+            excluirCliente();
+            break;
+        }
     }
-}
 
-
-
-
-while (opcaocliente != 0 );
+    while (opcaocliente != 0);
 
     salvarCliente();
 

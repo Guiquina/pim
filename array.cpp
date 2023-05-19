@@ -23,9 +23,22 @@ int main()
     numero[2]=-4;
     numero[3]=9;
     numero[4]=2;
+    int excluir = -1;
+    printf("Digite o número para excluir");
+    scanf("%d", &excluir );
 
-    int par = acharNumeroPar();
+    int novaLista[5];
+    int posicaoNovaLista=0;
+    for(int i=0 ; i < 5; i++){
+        if ( numero[i] != excluir ){
+            novaLista[posicaoNovaLista]= numero[i];
+            posicaoNovaLista++;
+        }
+    }
 
-    printf("O último número par encontrado é o %d", par);
+    for(int i=0; i < 5; i++){
+        printf("%d = %d\n", i, numero[i]);
+    }
+
 
 }
