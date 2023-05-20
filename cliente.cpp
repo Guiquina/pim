@@ -23,7 +23,7 @@ int tamanhoCliente = 0;
 int opcaoCliente;
 void menuCliente()
 {
-
+    system("cls");
     printf("1. Cadastrar\n");
     printf("2. Buscar\n");
     printf("3. Listar\n");
@@ -125,6 +125,7 @@ void cadastrarcliente()
     tamanhoCliente++;
     salvarCliente();
     printf("Registro cadastrado com sucesso.\n");
+    system("cls");
 }
 
 // Fun��o para buscar um registro pelo c�digo
@@ -147,8 +148,11 @@ void buscarCliente()
             printf("Ano de nascimento: %d\n", listaCliente[i].data);
             printf("endereco: %s\n", listaCliente[i].endereco);
             printf("E-mail: %s\n", listaCliente[i].email);
-            return;
+            
         }
+        getch();
+        system("cls");
+        return menuCliente();
     }
 
     printf("Registro nao encontrado.\n");
@@ -161,18 +165,27 @@ void listarCliente()
     carregarCliente();
 
     int i;
-    for (i = 0; i < tamanhoCliente; i++)
+    printf("==================================================================================================================================================\n");
+        
+    printf("%-10s%-25s%-6s%-15s%-6s%-30s\n","Codigo","Nome","Idade","Cpf","Ano","Endereco");
+    
+    printf("==================================================================================================================================================\n");
+
+    for (i = 0; i < tamanhoFuncionario; i++)
     {
-        printf("Codigo: %d\n", listaCliente[i].codigo);
-        printf("Nome: %s\n", listaCliente[i].nome);
-        printf("Idade: %d\n", listaCliente[i].idade);
-        printf("Celular: %s\n", listaCliente[i].celular);
-        printf("Cpf: %s\n", listaCliente[i].cpf);
-        printf("Data de Aniversario: %d\n", listaCliente[i].data);
-        printf("endereco: %s\n", listaCliente[i].endereco);
-        printf("E-mail: %s\n", listaCliente[i].email);
-        printf("\n");
+        printf("%-10d%-25s%-6d%-15s%-6d%-30s*\n",
+            listaFuncionario[i].codigo,
+            listaFuncionario[i].nome,
+            listaFuncionario[i].idade,
+            listaFuncionario[i].cpf,
+            listaFuncionario[i].data,
+            listaFuncionario[i].endereco);
+    
     }
+    getch();
+    system("cls");
+
+    return  menuFuncionario();
 }
 
 // Funcao para atualizar um registro pelo codigo
@@ -218,8 +231,12 @@ void atualizarCliente()
 
             printf("Registro atualizado com sucesso.\n");
             salvarCliente();
-            return;
+            
         }
+        getch();
+        system("cls");
+
+        return menuFuncionario();
     }
 
     printf("Registro nao encontrado.\n");
@@ -264,6 +281,9 @@ void excluirCliente()
      
     }
     printf("registro excluido com sucesso.\n");
+    getch();
+    system("cls");
+    return menuFuncionario();
 }
 
 int Cliente()

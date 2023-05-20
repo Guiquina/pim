@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 
 // Define o tamanho m�ximo da listaFuncionario
 #define MAX_REGISTROS 100
@@ -24,7 +25,7 @@ int opcaoFuncionario;
 
 void menuFuncionario()
 {
-
+    system("cls");
     printf("1. Cadastrar\n");
     printf("2. Buscar\n");
     printf("3. Listar\n");
@@ -32,6 +33,7 @@ void menuFuncionario()
     printf("5. Excluir\n");
     printf("0. sair\n");
     printf("digite uma opcao: ");
+    
 }
 
 void carregarFuncionario()
@@ -83,7 +85,7 @@ int gerarCodigoFuncionario()
 
 void cadastrarFuncionario()
 {
-
+    
     if (tamanhoFuncionario >= MAX_REGISTROS)
     {
         printf("Nao e possivel cadastrar mais registros.\n");
@@ -91,7 +93,7 @@ void cadastrarFuncionario()
     }
 
     struct RegistroFuncionario registro;
-
+    
     printf("Digite o nome: ");
     scanf("%s", &registro.nome);
     fflush(stdin);
@@ -125,6 +127,7 @@ void cadastrarFuncionario()
     tamanhoFuncionario++;
     salvarFuncionario();
     printf("Registro cadastrado com sucesso.\n");
+    system("cls");
 }
 
 // Fun��o para buscar um registro pelo c�digo
@@ -147,8 +150,11 @@ void buscarFuncionario()
             printf("Ano de nascimento: %d\n", listaFuncionario[i].data);
             printf("endereco: %s\n", listaFuncionario[i].endereco);
             printf("E-mail: %s\n", listaFuncionario[i].email);
-            return;
+        
         }
+        getch();
+        system("cls");
+        return menuFuncionario();
     }
 
     printf("Registro nao encontrado.\n");
@@ -159,22 +165,31 @@ void listarFuncionario()
 
     carregarFuncionario();
     int i;
+
+        printf("==================================================================================================================================================\n");
+        
+        printf("%-10s%-25s%-6s%-15s%-6s%-30s\n","Codigo","Nome","Idade","Cpf","Ano","Endereco");
+    
+        printf("==================================================================================================================================================\n");
+
     for (i = 0; i < tamanhoFuncionario; i++)
     {
-        printf("Codigo: %d\n", listaFuncionario[i].codigo);
-        printf("Nome: %s\n", listaFuncionario[i].nome);
-        printf("Idade: %d\n", listaFuncionario[i].idade);
-        printf("Celular: %s\n", listaFuncionario[i].celular);
-        printf("Cpf: %s\n", listaFuncionario[i].cpf);
-        printf("Data de Aniversario: %d\n", listaFuncionario[i].data);
-        printf("endereco: %s\n", listaFuncionario[i].endereco);
-        printf("E-mail: %s\n", listaFuncionario[i].email);
-        printf("\n");
+        printf("%-10d%-25s%-6d%-15s%-6d%-30s*\n",
+            listaFuncionario[i].codigo,
+            listaFuncionario[i].nome,
+            listaFuncionario[i].idade,
+            listaFuncionario[i].cpf,
+            listaFuncionario[i].data,
+            listaFuncionario[i].endereco);
+    
     }
-}
-// Funcao para listar todos os registros
+    getch();
+    system("cls");
 
-// Fun��o para atualizar um registro pelo codigo
+    return  menuFuncionario();
+
+}
+
 void atualizarFuncionario()
 {
     int codigo;
@@ -217,15 +232,18 @@ void atualizarFuncionario()
 
             printf("Registro atualizado com sucesso.\n");
             salvarFuncionario();
-            return;
+        
         }
+        getch();
+        system("cls");
+
+        return menuFuncionario();
         
     }
     
     printf("Registro nao encontrado.\n");
 }
 
-// Fun��o para excluir um registro pelo codigo
 void excluirFuncionario()
 {
     int codigo;
@@ -265,6 +283,9 @@ void excluirFuncionario()
         }
     }
     printf("Registros excluido com sucesso.\n");
+    getch();
+    system("cls");
+    return menuFuncionario();
 }
 
 int Funcionario()

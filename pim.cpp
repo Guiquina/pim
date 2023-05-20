@@ -6,6 +6,7 @@
 
 void exibirMenu()
 {
+    system("cls");
     printf("\n-- MENU --\n");
     printf("1. cliente\n");
     printf("2. funcionario\n");
