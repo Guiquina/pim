@@ -128,7 +128,7 @@ void cadastrarcliente()
     system("cls");
 }
 
-// Fun��o para buscar um registro pelo c�digo
+
 void buscarCliente()
 {
     int codigo;
@@ -160,7 +160,7 @@ void buscarCliente()
         return menuCliente();
 }
 
-// Funcao para listar todos os registros
+
 void listarCliente()
 {
 
