@@ -138,9 +138,10 @@ void buscarFuncionario()
     scanf("%d", &codigo);
 
     int i;
+
     for (i = 0; i < tamanhoFuncionario; i++)
     {
-        if (listaFuncionario[i].codigo == codigo)
+        if (codigo == listaFuncionario[i].codigo)
         {
             printf("Codigo: %d\n", listaFuncionario[i].codigo);
             printf("Nome: %s\n", listaFuncionario[i].nome);
@@ -152,12 +153,15 @@ void buscarFuncionario()
             printf("E-mail: %s\n", listaFuncionario[i].email);
         
         }
-        getch();
-        system("cls");
-        return menuFuncionario();
+        
     }
-
-    printf("Registro nao encontrado.\n");
+     if(codigo > tamanhoFuncionario){
+        printf("registro nao encontrado");
+     }
+    getch();
+    system("cls");
+    return menuFuncionario();
+   
 }
 
 void listarFuncionario()
@@ -174,7 +178,7 @@ void listarFuncionario()
 
     for (i = 0; i < tamanhoFuncionario; i++)
     {
-        printf("%-10d%-25s%-6d%-15s%-6d%-30s*\n",
+        printf("%-10d%-25s%-6d%-15s%-6d%-30s\n",
             listaFuncionario[i].codigo,
             listaFuncionario[i].nome,
             listaFuncionario[i].idade,

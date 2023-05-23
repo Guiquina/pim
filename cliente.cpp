@@ -136,9 +136,9 @@ void buscarCliente()
     scanf("%d", &codigo);
 
     int i;
-    for (i = 1; i < tamanhoCliente; i++)
+    for (i = 0; i < tamanhoCliente; i++)
     {
-        if (listaCliente[i].codigo == codigo)
+        if (codigo == listaCliente[i].codigo)
         {
             printf("Codigo: %d\n", listaCliente[i].codigo);
             printf("Nome: %s\n", listaCliente[i].nome);
@@ -150,12 +150,14 @@ void buscarCliente()
             printf("E-mail: %s\n", listaCliente[i].email);
             
         }
-        getch();
+       
+    }
+    if(codigo > tamanhoCliente){
+        printf("Registro nao encontrado.\n");
+    }
+     getch();
         system("cls");
         return menuCliente();
-    }
-
-    printf("Registro nao encontrado.\n");
 }
 
 // Funcao para listar todos os registros
